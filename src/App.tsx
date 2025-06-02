@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -26,7 +25,7 @@ const CloudPortfolio = () => {
       title: "Cloud Infrastructure Automation Platform",
       description: "Multi-tier AWS architecture with auto-scaling, infrastructure provisioning, and cost optimization",
       liveUrl: "https://cloud-infra-demo.vercel.app",
-      githubUrl: "https://github.com/bingxian/cloud-automation",
+      githubUrl: "https://github.com/bxianlim/cloud-automation",
       architecture: "/placeholder-architecture-1.png",
       techStack: ["AWS", "React", "Node.js", "PostgreSQL", "Docker", "Kubernetes", "Terraform"],
       impact: "Reduced deployment time by 75%",
@@ -36,7 +35,7 @@ const CloudPortfolio = () => {
       title: "DevOps CI/CD Pipeline Dashboard",
       description: "Complete CI/CD workflow with security scanning, automated testing, and multi-environment deployment",
       liveUrl: "https://devops-pipeline.netlify.app",
-      githubUrl: "https://github.com/bingxian/cicd-dashboard",
+      githubUrl: "https://github.com/bxianlim/cicd-dashboard",
       architecture: "/placeholder-architecture-2.png",
       techStack: ["GitHub Actions", "Docker", "Kubernetes", "Python", "Grafana", "Security Tools"],
       impact: "40% faster deployments",
@@ -46,7 +45,7 @@ const CloudPortfolio = () => {
       title: "Multi-Cloud Monitoring Solution",
       description: "Cross-cloud monitoring with real-time dashboards, cost optimization, and compliance reporting",
       liveUrl: "https://multi-cloud-monitor.vercel.app",
-      githubUrl: "https://github.com/bingxian/cloud-monitoring",
+      githubUrl: "https://github.com/bxianlim/cloud-monitoring",
       architecture: "/placeholder-architecture-3.png",
       techStack: ["Azure", "AWS", "GCP", "Prometheus", "Grafana", "Python", "Go"],
       impact: "30% cost reduction",
@@ -122,16 +121,28 @@ const CloudPortfolio = () => {
         </div>
       </nav>
 
-      {/* Hero Section with Impact */}
+      {/* Hero Section with Profile Image */}
       <section className="pt-32 pb-20 px-6 relative">
         <div className="max-w-7xl mx-auto">
           <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <div className="text-center mb-16">
-              <div className="inline-block animate-float mb-6">
-                <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-mint-400 to-mint-600 flex items-center justify-center text-white text-4xl font-bold shadow-2xl animate-glow">
-                  BX
+              {/* Profile Image */}
+              <div className="mb-8 flex justify-center">
+                <div className="relative group">
+                  <img 
+                    src="/profile.jpg" 
+                    alt="Bing Xian Lim - Cloud Infrastructure Engineer" 
+                    className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover shadow-2xl border-4 border-white/80 transition-all duration-300 group-hover:scale-105"
+                  />
+                  {/* Animated glow effect */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-mint-400/20 to-mint-600/20 animate-pulse"></div>
+                  {/* Status indicator */}
+                  <div className="absolute bottom-2 right-2 w-6 h-6 bg-green-500 border-2 border-white rounded-full animate-pulse flex items-center justify-center">
+                    <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                  </div>
                 </div>
               </div>
+
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
                 Cloud Infrastructure
                 <span className="bg-gradient-to-r from-mint-500 to-mint-700 bg-clip-text text-transparent block animate-slide-up">
