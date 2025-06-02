@@ -96,24 +96,60 @@ const CloudPortfolio = () => {
   };
 
   return (
-    <div className={`min-h-screen transition-all duration-500 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gradient-to-br from-mint-50 via-white to-mint-100 text-gray-900'}`}>
+    <div className={`min-h-screen transition-all duration-500 ${
+      isDarkMode 
+        ? 'bg-gray-900 text-gray-100' 
+        : 'bg-gradient-to-br from-mint-50 via-white to-mint-100 text-gray-900'
+    }`}>
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 ${isDarkMode ? 'bg-gray-900/90' : 'bg-white/90'} backdrop-blur-xl border-b border-mint-200/50 shadow-lg`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 ${
+        isDarkMode 
+          ? 'bg-gray-900/95 border-gray-700' 
+          : 'bg-white/90 border-mint-200/50'
+        } backdrop-blur-xl border-b shadow-lg`}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <div className="font-bold text-xl tracking-wide">Bing Xian Lim</div>
+            <div className={`font-bold text-xl tracking-wide ${
+              isDarkMode ? 'text-gray-100' : 'text-gray-900'
+            }`}>
+              Bing Xian Lim
+            </div>
             <div className="hidden md:flex space-x-8">
-              <a href="#projects" className="hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">Projects</a>
-              <a href="#architecture" className="hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">Architecture</a>
-              <a href="#skills" className="hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">Skills</a>
-              <a href="#experience" className="hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">Experience</a>
-              <a href="#contact" className="hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">Contact</a>
+              <a href="#projects" className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
+                isDarkMode 
+                  ? 'text-gray-300 hover:text-mint-400' 
+                  : 'text-gray-600 hover:text-mint-600'
+              }`}>Projects</a>
+              <a href="#architecture" className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
+                isDarkMode 
+                  ? 'text-gray-300 hover:text-mint-400' 
+                  : 'text-gray-600 hover:text-mint-600'
+              }`}>Architecture</a>
+              <a href="#skills" className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
+                isDarkMode 
+                  ? 'text-gray-300 hover:text-mint-400' 
+                  : 'text-gray-600 hover:text-mint-600'
+              }`}>Skills</a>
+              <a href="#experience" className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
+                isDarkMode 
+                  ? 'text-gray-300 hover:text-mint-400' 
+                  : 'text-gray-600 hover:text-mint-600'
+              }`}>Experience</a>
+              <a href="#contact" className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
+                isDarkMode 
+                  ? 'text-gray-300 hover:text-mint-400' 
+                  : 'text-gray-600 hover:text-mint-600'
+              }`}>Contact</a>
             </div>
             <Button
               variant="outline"
               size="sm"
               onClick={() => setIsDarkMode(!isDarkMode)}
-              className="ml-4"
+              className={`ml-4 ${
+                isDarkMode 
+                  ? 'border-gray-600 text-gray-300 hover:bg-gray-800' 
+                  : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+              }`}
             >
               {isDarkMode ? '☀️' : '🌙'}
             </Button>
@@ -130,10 +166,21 @@ const CloudPortfolio = () => {
               <div className="mb-8 flex justify-center">
                 <div className="relative group">
                   <img 
-                    src="/profile.png" 
+                    src="/profile.jpg" 
                     alt="Bing Xian Lim - Cloud Infrastructure Engineer" 
                     className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover shadow-2xl border-4 border-white/80 transition-all duration-300 group-hover:scale-105"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
                   />
+                  {/* Fallback Avatar */}
+                  <div 
+                    className="w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-mint-400 to-mint-600 flex items-center justify-center text-white text-4xl md:text-5xl font-bold shadow-2xl border-4 border-white/80 transition-all duration-300 group-hover:scale-105"
+                    style={{ display: 'none' }}
+                  >
+                    BX
+                  </div>
                   {/* Animated glow effect */}
                   <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-mint-400/20 to-mint-600/20 animate-pulse"></div>
                   {/* Status indicator */}
@@ -143,34 +190,62 @@ const CloudPortfolio = () => {
                 </div>
               </div>
 
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
+              <h1 className={`text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight ${
+                isDarkMode ? 'text-gray-100' : 'text-gray-900'
+              }`}>
                 Cloud Infrastructure
-                <span className="bg-gradient-to-r from-mint-500 to-mint-700 bg-clip-text text-transparent block animate-slide-up">
+                <span className="bg-gradient-to-r from-mint-400 to-mint-600 bg-clip-text text-transparent block animate-slide-up">
                   & DevOps Engineer
                 </span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-8">
+              <p className={`text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed mb-8 ${
+                isDarkMode ? 'text-gray-300' : 'text-gray-600'
+              }`}>
                 Specialized in building scalable cloud infrastructure, automating deployments, 
                 and optimizing system performance across multi-cloud environments.
               </p>
 
               {/* Key Metrics */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 max-w-5xl mx-auto">
-                <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white/80'} backdrop-blur-sm rounded-3xl p-6 border border-mint-200/50 shadow-xl`}>
-                  <div className="text-3xl font-bold text-mint-600 mb-2">40%</div>
-                  <div className="text-sm font-medium">Downtime Reduction</div>
+                <div className={`${
+                  isDarkMode 
+                    ? 'bg-gray-800 border-gray-700' 
+                    : 'bg-white/80 border-mint-200/50'
+                  } backdrop-blur-sm rounded-3xl p-6 border shadow-xl`}>
+                  <div className="text-3xl font-bold text-mint-500 mb-2">40%</div>
+                  <div className={`text-sm font-medium ${
+                    isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>Downtime Reduction</div>
                 </div>
-                <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white/80'} backdrop-blur-sm rounded-3xl p-6 border border-mint-200/50 shadow-xl`}>
-                  <div className="text-3xl font-bold text-mint-600 mb-2">3</div>
-                  <div className="text-sm font-medium">Cloud Platforms</div>
+                <div className={`${
+                  isDarkMode 
+                    ? 'bg-gray-800 border-gray-700' 
+                    : 'bg-white/80 border-mint-200/50'
+                  } backdrop-blur-sm rounded-3xl p-6 border shadow-xl`}>
+                  <div className="text-3xl font-bold text-mint-500 mb-2">3</div>
+                  <div className={`text-sm font-medium ${
+                    isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>Cloud Platforms</div>
                 </div>
-                <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white/80'} backdrop-blur-sm rounded-3xl p-6 border border-mint-200/50 shadow-xl`}>
-                  <div className="text-3xl font-bold text-mint-600 mb-2">75%</div>
-                  <div className="text-sm font-medium">Faster Deployments</div>
+                <div className={`${
+                  isDarkMode 
+                    ? 'bg-gray-800 border-gray-700' 
+                    : 'bg-white/80 border-mint-200/50'
+                  } backdrop-blur-sm rounded-3xl p-6 border shadow-xl`}>
+                  <div className="text-3xl font-bold text-mint-500 mb-2">75%</div>
+                  <div className={`text-sm font-medium ${
+                    isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>Faster Deployments</div>
                 </div>
-                <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white/80'} backdrop-blur-sm rounded-3xl p-6 border border-mint-200/50 shadow-xl`}>
-                  <div className="text-3xl font-bold text-mint-600 mb-2">4</div>
-                  <div className="text-sm font-medium">Certifications</div>
+                <div className={`${
+                  isDarkMode 
+                    ? 'bg-gray-800 border-gray-700' 
+                    : 'bg-white/80 border-mint-200/50'
+                  } backdrop-blur-sm rounded-3xl p-6 border shadow-xl`}>
+                  <div className="text-3xl font-bold text-mint-500 mb-2">4</div>
+                  <div className={`text-sm font-medium ${
+                    isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>Certifications</div>
                 </div>
               </div>
 
@@ -199,7 +274,9 @@ const CloudPortfolio = () => {
       {/* Project Portfolio Section */}
       <section id="projects" className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">Live Project Showcases</h2>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-16 text-center ${
+            isDarkMode ? 'text-gray-100' : 'text-gray-900'
+          }`}>Live Project Showcases</h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
             {projects.map((project, index) => (
@@ -223,7 +300,9 @@ const CloudPortfolio = () => {
                     </div>
                   </div>
                   <CardTitle className="group-hover:text-mint-600 transition-colors">{project.title}</CardTitle>
-                  <CardDescription>{project.description}</CardDescription>
+                  <CardDescription className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>
+                    {project.description}
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="mb-4">
@@ -235,7 +314,9 @@ const CloudPortfolio = () => {
                   </div>
                   
                   <div className="mb-4">
-                    <p className="text-sm font-semibold text-mint-600 mb-2">Impact: {project.impact}</p>
+                    <p className={`text-sm font-semibold mb-2 ${
+                      isDarkMode ? 'text-mint-400' : 'text-mint-600'
+                    }`}>Impact: {project.impact}</p>
                     <div className="flex flex-wrap gap-1">
                       {project.techStack.map((tech, techIndex) => (
                         <Badge key={techIndex} variant="outline" className="text-xs">
@@ -267,13 +348,17 @@ const CloudPortfolio = () => {
       {/* Technical Architecture Showcase */}
       <section id="architecture" className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">System Architecture Portfolio</h2>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-16 text-center ${
+            isDarkMode ? 'text-gray-100' : 'text-gray-900'
+          }`}>System Architecture Portfolio</h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <Card className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white/80'} backdrop-blur-sm border border-mint-200/50 shadow-xl`}>
               <CardHeader>
                 <CardTitle>Multi-Cloud Infrastructure</CardTitle>
-                <CardDescription>Scalable architecture across AWS, Azure, and GCP</CardDescription>
+                <CardDescription className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>
+                  Scalable architecture across AWS, Azure, and GCP
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className={`w-full h-64 ${isDarkMode ? 'bg-gray-700' : 'bg-gradient-to-br from-blue-100 to-blue-200'} rounded-lg flex items-center justify-center text-gray-500 mb-4`}>
@@ -281,7 +366,9 @@ const CloudPortfolio = () => {
                   <br />
                   <span className="text-sm">(Click to explore layers)</span>
                 </div>
-                <p className="text-sm text-gray-600 mb-4">
+                <p className={`text-sm mb-4 ${
+                  isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                }`}>
                   Designed and implemented multi-region, multi-cloud infrastructure with automated failover, 
                   load balancing, and cost optimization across three major cloud providers.
                 </p>
@@ -298,7 +385,9 @@ const CloudPortfolio = () => {
             <Card className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white/80'} backdrop-blur-sm border border-mint-200/50 shadow-xl`}>
               <CardHeader>
                 <CardTitle>CI/CD Pipeline Architecture</CardTitle>
-                <CardDescription>End-to-end automation with security scanning</CardDescription>
+                <CardDescription className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>
+                  End-to-end automation with security scanning
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className={`w-full h-64 ${isDarkMode ? 'bg-gray-700' : 'bg-gradient-to-br from-green-100 to-green-200'} rounded-lg flex items-center justify-center text-gray-500 mb-4`}>
@@ -306,7 +395,9 @@ const CloudPortfolio = () => {
                   <br />
                   <span className="text-sm">(Real-time status)</span>
                 </div>
-                <p className="text-sm text-gray-600 mb-4">
+                <p className={`text-sm mb-4 ${
+                  isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                }`}>
                   Built comprehensive CI/CD pipelines with automated testing, security scanning, 
                   and multi-environment deployments reducing deployment time by 75%.
                 </p>
@@ -325,7 +416,9 @@ const CloudPortfolio = () => {
       {/* Skills Matrix with Evidence */}
       <section id="skills" className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">Technical Expertise Matrix</h2>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-16 text-center ${
+            isDarkMode ? 'text-gray-100' : 'text-gray-900'
+          }`}>Technical Expertise Matrix</h2>
           
           <div className="mb-8 flex flex-wrap gap-2 justify-center">
             <Button 
@@ -360,13 +453,15 @@ const CloudPortfolio = () => {
                     <div className="space-y-2">
                       {technologies.map((tech, index) => (
                         <div key={index} className="flex items-center justify-between">
-                          <span className="text-sm">{tech}</span>
+                          <span className={`text-sm ${
+                            isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                          }`}>{tech}</span>
                           <div className="flex gap-1">
                             {[1, 2, 3, 4, 5].map((level) => (
                               <div
                                 key={level}
                                 className={`w-2 h-2 rounded-full ${
-                                  level <= 4 ? 'bg-mint-500' : 'bg-gray-300'
+                                  level <= 4 ? 'bg-mint-500' : (isDarkMode ? 'bg-gray-600' : 'bg-gray-300')
                                 }`}
                               />
                             ))}
@@ -385,7 +480,9 @@ const CloudPortfolio = () => {
       {/* Certifications */}
       <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">Verified Certifications</h2>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-16 text-center ${
+            isDarkMode ? 'text-gray-100' : 'text-gray-900'
+          }`}>Verified Certifications</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {certifications.map((cert, index) => (
@@ -395,7 +492,9 @@ const CloudPortfolio = () => {
                     {cert.badge}
                   </div>
                   <CardTitle className="text-lg">{cert.title}</CardTitle>
-                  <CardDescription>{cert.issuer} • {cert.date}</CardDescription>
+                  <CardDescription className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>
+                    {cert.issuer} • {cert.date}
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button variant="outline" className="w-full" asChild>
@@ -413,91 +512,67 @@ const CloudPortfolio = () => {
       {/* Professional Experience */}
       <section id="experience" className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">Professional Experience</h2>
+          <h2 className={`text-4xl md:text-5xl font-bold mb-16 text-center ${
+            isDarkMode ? 'text-gray-100' : 'text-gray-900'
+          }`}>Professional Experience</h2>
           
           <div className="space-y-8">
             <Card className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white/80'} backdrop-blur-sm border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]`}>
               <CardHeader>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start">
                   <div>
-                    <CardTitle className="text-2xl mb-2">Cloud Infrastructure Trainee</CardTitle>
-                    <p className="text-xl text-mint-600 font-semibold mb-2">DBS Bank</p>
-                    <p className="text-gray-500">January 2024 - Present • Singapore</p>
-                  </div>
-                  <Badge className="bg-green-100 text-green-800 mt-4 md:mt-0">Current Role</Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-semibold mb-3">Key Achievements:</h4>
-                    <ul className="space-y-2 text-gray-600">
-                      <li className="flex items-start gap-3">
-                        <span className="text-mint-500 mt-1">🔧</span>
-                        Configured Mirantis Kubernetes Engine on Linux systems
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-mint-500 mt-1">☁️</span>
-                        Managed multiple VMs in Oracle Private Cloud
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-mint-500 mt-1">📋</span>
-                        Documented infrastructure processes and configurations
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-3">Technologies Used:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge>Kubernetes</Badge>
-                      <Badge>Docker</Badge>
-                      <Badge>Oracle Cloud</Badge>
-                      <Badge>Linux</Badge>
-                      <Badge>Infrastructure as Code</Badge>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white/80'} backdrop-blur-sm border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]`}>
-              <CardHeader>
-                <div className="flex flex-col md:flex-row md:justify-between md:items-start">
-                  <div>
                     <CardTitle className="text-2xl mb-2">Data Center Engineer</CardTitle>
-                    <p className="text-xl text-mint-600 font-semibold mb-2">Leaseweb</p>
-                    <p className="text-gray-500">May 2022 - December 2023 • Singapore</p>
+                    <p className={`text-xl font-semibold mb-2 ${
+                      isDarkMode ? 'text-mint-400' : 'text-mint-600'
+                    }`}>Leaseweb</p>
+                    <p className={isDarkMode ? 'text-gray-400' : 'text-gray-500'}>May 2022 - December 2023 • Singapore</p>
                   </div>
                   <Badge variant="outline" className="mt-4 md:mt-0">1.7 Years</Badge>
                 </div>
               </CardHeader>
               <CardContent>
-                <div className={`${isDarkMode ? 'bg-gray-700' : 'bg-mint-50'} border border-mint-200 rounded-xl p-4 mb-6`}>
-                  <div className="flex items-center gap-2 text-mint-800 font-semibold">
+                <div className={`${
+                  isDarkMode 
+                    ? 'bg-gray-700 border-gray-600' 
+                    : 'bg-mint-50 border-mint-200'
+                  } border rounded-xl p-4 mb-6`}>
+                  <div className={`flex items-center gap-2 font-semibold ${
+                    isDarkMode ? 'text-mint-400' : 'text-mint-800'
+                  }`}>
                     <span className="text-lg">🎯</span>
                     Key Achievement: 40% reduction in system downtime
                   </div>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div>
-                    <h4 className="font-semibold mb-3">Infrastructure Responsibilities:</h4>
-                    <ul className="space-y-2 text-gray-600">
-                      <li className="flex items-start gap-3">
+                    <h4 className={`font-semibold mb-3 ${
+                      isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>Infrastructure Responsibilities:</h4>
+                    <ul className="space-y-2">
+                      <li className={`flex items-start gap-3 ${
+                        isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                      }`}>
                         <span className="text-mint-500 mt-1">🖥️</span>
                         Server hardware installation and troubleshooting
                       </li>
-                      <li className="flex items-start gap-3">
+                      <li className={`flex items-start gap-3 ${
+                        isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                      }`}>
                         <span className="text-mint-500 mt-1">🔌</span>
                         Network device configuration and maintenance
                       </li>
-                      <li className="flex items-start gap-3">
+                      <li className={`flex items-start gap-3 ${
+                        isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                      }`}>
                         <span className="text-mint-500 mt-1">🛠️</span>
                         Remote hands support and hardware upgrades
                       </li>
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-3">Technical Skills Developed:</h4>
+                    <h4 className={`font-semibold mb-3 ${
+                      isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>Technical Skills Developed:</h4>
                     <div className="flex flex-wrap gap-2">
                       <Badge>Server Hardware</Badge>
                       <Badge>Network Configuration</Badge>
@@ -553,7 +628,11 @@ const CloudPortfolio = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 text-center text-gray-500 bg-white/50 backdrop-blur-sm">
+      <footer className={`py-8 px-6 text-center ${
+        isDarkMode 
+          ? 'text-gray-500 bg-gray-900/50' 
+          : 'text-gray-500 bg-white/50'
+      } backdrop-blur-sm`}>
         <p>&copy; 2024 Bing Xian Lim. Cloud Infrastructure & DevOps Engineer.</p>
       </footer>
     </div>
@@ -570,4 +649,60 @@ const App = () => (
   </QueryClientProvider>
 );
 
-export default App;
+export default App;shadow-2xl transition-all duration-500 hover:scale-[1.02]`}>
+              <CardHeader>
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start">
+                  <div>
+                    <CardTitle className="text-2xl mb-2">Cloud Infrastructure Trainee</CardTitle>
+                    <p className={`text-xl font-semibold mb-2 ${
+                      isDarkMode ? 'text-mint-400' : 'text-mint-600'
+                    }`}>DBS Bank</p>
+                    <p className={isDarkMode ? 'text-gray-400' : 'text-gray-500'}>January 2024 - Present • Singapore</p>
+                  </div>
+                  <Badge className="bg-green-100 text-green-800 mt-4 md:mt-0">Current Role</Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className={`font-semibold mb-3 ${
+                      isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>Key Achievements:</h4>
+                    <ul className="space-y-2">
+                      <li className={`flex items-start gap-3 ${
+                        isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                      }`}>
+                        <span className="text-mint-500 mt-1">🔧</span>
+                        Configured Mirantis Kubernetes Engine on Linux systems
+                      </li>
+                      <li className={`flex items-start gap-3 ${
+                        isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                      }`}>
+                        <span className="text-mint-500 mt-1">☁️</span>
+                        Managed multiple VMs in Oracle Private Cloud
+                      </li>
+                      <li className={`flex items-start gap-3 ${
+                        isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                      }`}>
+                        <span className="text-mint-500 mt-1">📋</span>
+                        Documented infrastructure processes and configurations
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className={`font-semibold mb-3 ${
+                      isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>Technologies Used:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge>Kubernetes</Badge>
+                      <Badge>Docker</Badge>
+                      <Badge>Oracle Cloud</Badge>
+                      <Badge>Linux</Badge>
+                      <Badge>Infrastructure as Code</Badge>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white/80'} backdrop-blur-sm border border-mint-200/50 shadow-xl hover:
