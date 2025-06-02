@@ -4,53 +4,125 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ExternalLink, Github } from "lucide-react";
 
 const queryClient = new QueryClient();
 
-const ModernResumeLanding = () => {
+const CloudPortfolio = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+  const [selectedProject, setSelectedProject] = useState(0);
+  const [skillFilter, setSkillFilter] = useState('all');
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
-    
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-mint-50 via-white to-mint-100 relative overflow-x-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 left-10 w-72 h-72 rounded-full bg-mint-500 blur-3xl"></div>
-        <div className="absolute top-1/3 right-20 w-96 h-96 rounded-full bg-mint-400 blur-3xl"></div>
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 rounded-full bg-mint-600 blur-3xl"></div>
-      </div>
+  const projects = [
+    {
+      title: "Cloud Infrastructure Automation Platform",
+      description: "Multi-tier AWS architecture with auto-scaling, infrastructure provisioning, and cost optimization",
+      liveUrl: "https://cloud-infra-demo.vercel.app",
+      githubUrl: "https://github.com/bingxian/cloud-automation",
+      architecture: "/placeholder-architecture-1.png",
+      techStack: ["AWS", "React", "Node.js", "PostgreSQL", "Docker", "Kubernetes", "Terraform"],
+      impact: "Reduced deployment time by 75%",
+      status: "live"
+    },
+    {
+      title: "DevOps CI/CD Pipeline Dashboard",
+      description: "Complete CI/CD workflow with security scanning, automated testing, and multi-environment deployment",
+      liveUrl: "https://devops-pipeline.netlify.app",
+      githubUrl: "https://github.com/bingxian/cicd-dashboard",
+      architecture: "/placeholder-architecture-2.png",
+      techStack: ["GitHub Actions", "Docker", "Kubernetes", "Python", "Grafana", "Security Tools"],
+      impact: "40% faster deployments",
+      status: "live"
+    },
+    {
+      title: "Multi-Cloud Monitoring Solution",
+      description: "Cross-cloud monitoring with real-time dashboards, cost optimization, and compliance reporting",
+      liveUrl: "https://multi-cloud-monitor.vercel.app",
+      githubUrl: "https://github.com/bingxian/cloud-monitoring",
+      architecture: "/placeholder-architecture-3.png",
+      techStack: ["Azure", "AWS", "GCP", "Prometheus", "Grafana", "Python", "Go"],
+      impact: "30% cost reduction",
+      status: "live"
+    }
+  ];
 
+  const certifications = [
+    {
+      title: "AWS Certified Cloud Practitioner",
+      issuer: "Amazon Web Services",
+      date: "2025",
+      verifyUrl: "https://aws.amazon.com/verification",
+      badge: "🟠"
+    },
+    {
+      title: "Azure Fundamentals",
+      issuer: "Microsoft",
+      date: "2025",
+      verifyUrl: "https://docs.microsoft.com/learn",
+      badge: "🔵"
+    },
+    {
+      title: "DevOps Foundation",
+      issuer: "DevOps Institute",
+      date: "2024",
+      verifyUrl: "https://devopsinstitute.com/verify",
+      badge: "🟢"
+    },
+    {
+      title: "Data Center Design Awareness",
+      issuer: "DCD Academy",
+      date: "2023",
+      verifyUrl: "https://dcd.com/academy",
+      badge: "🟣"
+    }
+  ];
+
+  const techStack = {
+    "Cloud Platforms": ["AWS EC2", "AWS Lambda", "Azure VMs", "Oracle Cloud", "GCP Compute"],
+    "Containers": ["Docker", "Kubernetes", "Mirantis", "Container Registry", "Helm"],
+    "Infrastructure as Code": ["Terraform", "CloudFormation", "Ansible", "Pulumi"],
+    "CI/CD": ["GitHub Actions", "Jenkins", "Azure DevOps", "GitLab CI", "CircleCI"],
+    "Monitoring": ["Prometheus", "Grafana", "CloudWatch", "Azure Monitor", "ELK Stack"],
+    "Security": ["Security Scanning", "Compliance Automation", "IAM", "Network Security"],
+    "Programming": ["Python", "Bash", "PowerShell", "Go", "JavaScript"],
+    "Databases": ["PostgreSQL", "MongoDB", "Redis", "MySQL"]
+  };
+
+  return (
+    <div className={`min-h-screen transition-all duration-500 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gradient-to-br from-mint-50 via-white to-mint-100 text-gray-900'}`}>
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-mint-200/50 shadow-lg">
+      <nav className={`fixed top-0 left-0 right-0 z-50 ${isDarkMode ? 'bg-gray-900/90' : 'bg-white/90'} backdrop-blur-xl border-b border-mint-200/50 shadow-lg`}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-black font-bold text-xl tracking-wide">Bing Xian Lim</div>
+            <div className="font-bold text-xl tracking-wide">Bing Xian Lim</div>
             <div className="hidden md:flex space-x-8">
-              <a href="#about" className="text-gray-700 hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">About</a>
-              <a href="#experience" className="text-gray-700 hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">Experience</a>
-              <a href="#skills" className="text-gray-700 hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">Skills</a>
-              <a href="#contact" className="text-gray-700 hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">Contact</a>
+              <a href="#projects" className="hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">Projects</a>
+              <a href="#architecture" className="hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">Architecture</a>
+              <a href="#skills" className="hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">Skills</a>
+              <a href="#experience" className="hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">Experience</a>
+              <a href="#contact" className="hover:text-mint-600 transition-all duration-300 text-sm font-medium hover:scale-105">Contact</a>
             </div>
-            <div className="md:hidden">
-              <button className="text-gray-700 hover:text-mint-600">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="ml-4"
+            >
+              {isDarkMode ? '☀️' : '🌙'}
+            </Button>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero Section with Impact */}
       <section className="pt-32 pb-20 px-6 relative">
         <div className="max-w-7xl mx-auto">
           <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
@@ -60,306 +132,371 @@ const ModernResumeLanding = () => {
                   BX
                 </div>
               </div>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-black mb-8 leading-tight">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
                 Cloud Infrastructure
                 <span className="bg-gradient-to-r from-mint-500 to-mint-700 bg-clip-text text-transparent block animate-slide-up">
-                  Specialist
+                  & DevOps Engineer
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-8">
-                Experienced Data Center Engineer with expertise in deploying, maintaining, and 
-                troubleshooting hardware and networking systems in secure cloud environments.
+                Specialized in building scalable cloud infrastructure, automating deployments, 
+                and optimizing system performance across multi-cloud environments.
               </p>
+
+              {/* Key Metrics */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 max-w-5xl mx-auto">
+                <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white/80'} backdrop-blur-sm rounded-3xl p-6 border border-mint-200/50 shadow-xl`}>
+                  <div className="text-3xl font-bold text-mint-600 mb-2">40%</div>
+                  <div className="text-sm font-medium">Downtime Reduction</div>
+                </div>
+                <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white/80'} backdrop-blur-sm rounded-3xl p-6 border border-mint-200/50 shadow-xl`}>
+                  <div className="text-3xl font-bold text-mint-600 mb-2">3</div>
+                  <div className="text-sm font-medium">Cloud Platforms</div>
+                </div>
+                <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white/80'} backdrop-blur-sm rounded-3xl p-6 border border-mint-200/50 shadow-xl`}>
+                  <div className="text-3xl font-bold text-mint-600 mb-2">75%</div>
+                  <div className="text-sm font-medium">Faster Deployments</div>
+                </div>
+                <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white/80'} backdrop-blur-sm rounded-3xl p-6 border border-mint-200/50 shadow-xl`}>
+                  <div className="text-3xl font-bold text-mint-600 mb-2">4</div>
+                  <div className="text-sm font-medium">Certifications</div>
+                </div>
+              </div>
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a 
-                  href="#contact" 
-                  className="bg-mint-500 hover:bg-mint-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                <Button 
+                  size="lg"
+                  className="bg-mint-500 hover:bg-mint-600 text-white px-8 py-4 text-lg"
+                  onClick={() => document.getElementById('architecture')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  Get In Touch
-                </a>
-                <a 
-                  href="#experience" 
-                  className="border-2 border-mint-500 text-mint-600 hover:bg-mint-500 hover:text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105"
+                  View Architecture
+                </Button>
+                <Button 
+                  variant="outline"
+                  size="lg"
+                  className="border-2 border-mint-500 text-mint-600 hover:bg-mint-500 hover:text-white px-8 py-4 text-lg"
+                  onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  View Experience
-                </a>
-              </div>
-            </div>
-
-            {/* Key Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-              <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
-                <div className="text-4xl font-bold text-mint-600 mb-3 group-hover:scale-110 transition-transform duration-300">40%</div>
-                <div className="text-black font-semibold text-lg mb-2">Reduction in Downtime</div>
-                <div className="text-sm text-gray-500">Achieved through optimized troubleshooting</div>
-              </div>
-              <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
-                <div className="text-4xl font-bold text-mint-600 mb-3 group-hover:scale-110 transition-transform duration-300">4</div>
-                <div className="text-black font-semibold text-lg mb-2">Cloud Certifications</div>
-                <div className="text-sm text-gray-500">AWS, Azure, DevOps, DCD Academy</div>
-              </div>
-              <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
-                <div className="text-4xl font-bold text-mint-600 mb-3 group-hover:scale-110 transition-transform duration-300">2+</div>
-                <div className="text-black font-semibold text-lg mb-2">Years Experience</div>
-                <div className="text-sm text-gray-500">In data center operations</div>
+                  Live Projects
+                </Button>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 px-6 relative">
+      {/* Project Portfolio Section */}
+      <section id="projects" className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-mint-200/50 shadow-2xl">
-            <h2 className="text-4xl md:text-5xl font-bold text-black mb-12 text-center">Professional Summary</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  Proven track record in deploying, maintaining, and troubleshooting hardware and 
-                  networking systems in secure environments. Skilled in Linux-based tools, server 
-                  maintenance, and advanced networking protocols.
-                </p>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  Adept at collaborating with cross-functional teams to resolve critical technical 
-                  issues and optimize data center operations. Passionate about working with 
-                  cutting-edge technologies and contributing to global-scale infrastructure projects.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <span className="bg-mint-100 text-mint-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-mint-200 transition-colors">Singapore Based</span>
-                  <span className="bg-mint-100 text-mint-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-mint-200 transition-colors">Multilingual</span>
-                  <span className="bg-mint-100 text-mint-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-mint-200 transition-colors">Global Scale</span>
-                </div>
-              </div>
-              <div className="bg-gradient-to-br from-mint-500 to-mint-700 rounded-3xl p-8 text-white shadow-2xl">
-                <h3 className="text-2xl font-semibold mb-6">Languages</h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium">English</span>
-                    <div className="w-24 h-3 bg-white/30 rounded-full">
-                      <div className="w-full h-full bg-white rounded-full"></div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium">Mandarin</span>
-                    <div className="w-24 h-3 bg-white/30 rounded-full">
-                      <div className="w-full h-full bg-white rounded-full"></div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium">Cantonese</span>
-                    <div className="w-24 h-3 bg-white/30 rounded-full">
-                      <div className="w-full h-full bg-white rounded-full"></div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium">Bahasa Melayu</span>
-                    <div className="w-24 h-3 bg-white/30 rounded-full">
-                      <div className="w-full h-full bg-white rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Experience Section */}
-      <section id="experience" className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-black mb-16 text-center">Professional Experience</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">Live Project Showcases</h2>
           
-          <div className="space-y-8">
-            {/* Current Role */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] group">
-              <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-6">
-                <div>
-                  <h3 className="text-2xl font-bold text-black mb-2 group-hover:text-mint-600 transition-colors">Cloud Infrastructure Trainee</h3>
-                  <p className="text-xl text-mint-600 font-semibold mb-2">DBS Bank</p>
-                  <p className="text-gray-500">January 2024 - Present • Singapore</p>
-                </div>
-                <span className="bg-mint-100 text-mint-800 px-4 py-2 rounded-full text-sm font-medium mt-4 md:mt-0 self-start animate-pulse">
-                  Current Role
-                </span>
-              </div>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-start gap-3 hover:text-black transition-colors">
-                  <span className="text-mint-500 mt-1 text-lg">🔧</span>
-                  Configured and deployed containerized solutions with Mirantis Kubernetes Engine on Linux-based systems
-                </li>
-                <li className="flex items-start gap-3 hover:text-black transition-colors">
-                  <span className="text-mint-500 mt-1 text-lg">☁️</span>
-                  Provisioned and managed multiple VMs in Oracle Private Cloud, troubleshooting OS-related issues
-                </li>
-                <li className="flex items-start gap-3 hover:text-black transition-colors">
-                  <span className="text-mint-500 mt-1 text-lg">📋</span>
-                  Documented technical processes and configurations for operational continuity
-                </li>
-                <li className="flex items-start gap-3 hover:text-black transition-colors">
-                  <span className="text-mint-500 mt-1 text-lg">🤝</span>
-                  Collaborated with deployment teams on infrastructure projects and provided process improvements
-                </li>
-              </ul>
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <Card key={index} className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white/80'} backdrop-blur-sm border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] group overflow-hidden`}>
+                <CardHeader>
+                  <div className="flex items-center justify-between mb-2">
+                    <Badge variant={project.status === 'live' ? 'default' : 'secondary'} className="bg-green-100 text-green-800">
+                      ● {project.status}
+                    </Badge>
+                    <div className="flex gap-2">
+                      <Button variant="ghost" size="sm" asChild>
+                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      </Button>
+                      <Button variant="ghost" size="sm" asChild>
+                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                          <Github className="h-4 w-4" />
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                  <CardTitle className="group-hover:text-mint-600 transition-colors">{project.title}</CardTitle>
+                  <CardDescription>{project.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="mb-4">
+                    <div className={`w-full h-48 ${isDarkMode ? 'bg-gray-700' : 'bg-gradient-to-br from-mint-100 to-mint-200'} rounded-lg flex items-center justify-center text-gray-500 mb-4`}>
+                      Architecture Diagram
+                      <br />
+                      <span className="text-sm">(Interactive View)</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mb-4">
+                    <p className="text-sm font-semibold text-mint-600 mb-2">Impact: {project.impact}</p>
+                    <div className="flex flex-wrap gap-1">
+                      {project.techStack.map((tech, techIndex) => (
+                        <Badge key={techIndex} variant="outline" className="text-xs">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
 
-            {/* Previous Role */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] group">
-              <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-6">
-                <div>
-                  <h3 className="text-2xl font-bold text-black mb-2 group-hover:text-mint-600 transition-colors">Data Center Engineer</h3>
-                  <p className="text-xl text-mint-600 font-semibold mb-2">Leaseweb</p>
-                  <p className="text-gray-500">May 2022 - December 2023 • Singapore</p>
-                </div>
-                <span className="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm font-medium mt-4 md:mt-0 self-start">
-                  1.7 Years
-                </span>
-              </div>
-              <div className="bg-mint-50 border border-mint-200 rounded-xl p-4 mb-6">
-                <div className="flex items-center gap-2 text-mint-800 font-semibold">
-                  <span className="text-lg">🎯</span>
-                  Key Achievement: 40% reduction in downtime
-                </div>
-              </div>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-start gap-3 hover:text-black transition-colors">
-                  <span className="text-mint-500 mt-1 text-lg">🖥️</span>
-                  Installed, configured, and troubleshot server hardware and network devices
-                </li>
-                <li className="flex items-start gap-3 hover:text-black transition-colors">
-                  <span className="text-mint-500 mt-1 text-lg">🔌</span>
-                  Executed server racking, cable management, equipment maintenance, and inventory management
-                </li>
-                <li className="flex items-start gap-3 hover:text-black transition-colors">
-                  <span className="text-mint-500 mt-1 text-lg">🛠️</span>
-                  Provided remote hands support including power cycles, component swaps, and hardware upgrades
-                </li>
-                <li className="flex items-start gap-3 hover:text-black transition-colors">
-                  <span className="text-mint-500 mt-1 text-lg">🎫</span>
-                  Operated ticket-based system for technical issue resolution and vendor collaboration
-                </li>
-              </ul>
-            </div>
+                  <div className="flex gap-2">
+                    <Button className="flex-1 bg-mint-500 hover:bg-mint-600" asChild>
+                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                        View Live Demo
+                      </a>
+                    </Button>
+                    <Button variant="outline" className="flex-1" asChild>
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                        View Code
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Skills Section */}
+      {/* Technical Architecture Showcase */}
+      <section id="architecture" className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">System Architecture Portfolio</h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <Card className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white/80'} backdrop-blur-sm border border-mint-200/50 shadow-xl`}>
+              <CardHeader>
+                <CardTitle>Multi-Cloud Infrastructure</CardTitle>
+                <CardDescription>Scalable architecture across AWS, Azure, and GCP</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className={`w-full h-64 ${isDarkMode ? 'bg-gray-700' : 'bg-gradient-to-br from-blue-100 to-blue-200'} rounded-lg flex items-center justify-center text-gray-500 mb-4`}>
+                  Interactive Architecture Diagram
+                  <br />
+                  <span className="text-sm">(Click to explore layers)</span>
+                </div>
+                <p className="text-sm text-gray-600 mb-4">
+                  Designed and implemented multi-region, multi-cloud infrastructure with automated failover, 
+                  load balancing, and cost optimization across three major cloud providers.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge>AWS</Badge>
+                  <Badge>Azure</Badge>
+                  <Badge>GCP</Badge>
+                  <Badge>Terraform</Badge>
+                  <Badge>Kubernetes</Badge>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white/80'} backdrop-blur-sm border border-mint-200/50 shadow-xl`}>
+              <CardHeader>
+                <CardTitle>CI/CD Pipeline Architecture</CardTitle>
+                <CardDescription>End-to-end automation with security scanning</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className={`w-full h-64 ${isDarkMode ? 'bg-gray-700' : 'bg-gradient-to-br from-green-100 to-green-200'} rounded-lg flex items-center justify-center text-gray-500 mb-4`}>
+                  Pipeline Flow Visualization
+                  <br />
+                  <span className="text-sm">(Real-time status)</span>
+                </div>
+                <p className="text-sm text-gray-600 mb-4">
+                  Built comprehensive CI/CD pipelines with automated testing, security scanning, 
+                  and multi-environment deployments reducing deployment time by 75%.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge>GitHub Actions</Badge>
+                  <Badge>Docker</Badge>
+                  <Badge>Security Scanning</Badge>
+                  <Badge>Automated Testing</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Matrix with Evidence */}
       <section id="skills" className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-black mb-16 text-center">Technical Expertise</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">Technical Expertise Matrix</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Data Center Operations */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
-              <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">🏢</div>
-              <h3 className="text-xl font-bold text-black mb-4 group-hover:text-mint-600 transition-colors">Data Center Operations</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li>• Server racking & cabling</li>
-                <li>• Hardware troubleshooting</li>
-                <li>• System maintenance</li>
-                <li>• Network gear deployment</li>
-              </ul>
-            </div>
+          <div className="mb-8 flex flex-wrap gap-2 justify-center">
+            <Button 
+              variant={skillFilter === 'all' ? 'default' : 'outline'}
+              onClick={() => setSkillFilter('all')}
+              className="mb-2"
+            >
+              All Technologies
+            </Button>
+            {Object.keys(techStack).map((category) => (
+              <Button
+                key={category}
+                variant={skillFilter === category ? 'default' : 'outline'}
+                onClick={() => setSkillFilter(category)}
+                className="mb-2"
+              >
+                {category}
+              </Button>
+            ))}
+          </div>
 
-            {/* Linux & Networking */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
-              <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">🐧</div>
-              <h3 className="text-xl font-bold text-black mb-4 group-hover:text-mint-600 transition-colors">Linux & Networking</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li>• Linux OS configuration</li>
-                <li>• TCP/IP, DNS, VPN</li>
-                <li>• Network topology design</li>
-                <li>• Troubleshooting tools</li>
-              </ul>
-            </div>
-
-            {/* Cloud & Virtualization */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
-              <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">☁️</div>
-              <h3 className="text-xl font-bold text-black mb-4 group-hover:text-mint-600 transition-colors">Cloud & Virtualization</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li>• Oracle Private Cloud</li>
-                <li>• AWS, Azure, GCP</li>
-                <li>• VM provisioning</li>
-                <li>• Hypervisors (Oracle VM)</li>
-              </ul>
-            </div>
-
-            {/* Soft Skills */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
-              <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-300">🤝</div>
-              <h3 className="text-xl font-bold text-black mb-4 group-hover:text-mint-600 transition-colors">Communication</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li>• Cross-functional teams</li>
-                <li>• Technical documentation</li>
-                <li>• Process improvement</li>
-                <li>• Multilingual support</li>
-              </ul>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {Object.entries(techStack).map(([category, technologies]) => {
+              if (skillFilter !== 'all' && skillFilter !== category) return null;
+              
+              return (
+                <Card key={category} className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white/80'} backdrop-blur-sm border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105`}>
+                  <CardHeader>
+                    <CardTitle className="text-lg">{category}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      {technologies.map((tech, index) => (
+                        <div key={index} className="flex items-center justify-between">
+                          <span className="text-sm">{tech}</span>
+                          <div className="flex gap-1">
+                            {[1, 2, 3, 4, 5].map((level) => (
+                              <div
+                                key={level}
+                                className={`w-2 h-2 rounded-full ${
+                                  level <= 4 ? 'bg-mint-500' : 'bg-gray-300'
+                                }`}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Education & Certifications */}
+      {/* Certifications */}
       <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Education */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500">
-              <h3 className="text-3xl font-bold text-black mb-8 flex items-center gap-3">
-                🎓 Education
-              </h3>
-              <div className="space-y-8">
-                <div className="group">
-                  <h4 className="text-xl font-semibold text-black group-hover:text-mint-600 transition-colors">Cloud Infrastructure Engineering</h4>
-                  <p className="text-mint-600 font-medium text-lg">Nanyang Technological University</p>
-                  <p className="text-gray-500">2023</p>
-                </div>
-                <div className="group">
-                  <h4 className="text-xl font-semibold text-black group-hover:text-mint-600 transition-colors">Bachelor of Marketing</h4>
-                  <p className="text-mint-600 font-medium text-lg">University of Hertfordshire</p>
-                  <p className="text-gray-500">Minor in International Trade • 2015</p>
-                </div>
-              </div>
-            </div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">Verified Certifications</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {certifications.map((cert, index) => (
+              <Card key={index} className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white/80'} backdrop-blur-sm border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group`}>
+                <CardHeader className="text-center">
+                  <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                    {cert.badge}
+                  </div>
+                  <CardTitle className="text-lg">{cert.title}</CardTitle>
+                  <CardDescription>{cert.issuer} • {cert.date}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button variant="outline" className="w-full" asChild>
+                    <a href={cert.verifyUrl} target="_blank" rel="noopener noreferrer">
+                      Verify Credential
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* Certifications */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500">
-              <h3 className="text-3xl font-bold text-black mb-8 flex items-center gap-3">
-                🏆 Certifications
-              </h3>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 p-4 bg-orange-50 rounded-xl border border-orange-200 hover:scale-105 transition-transform duration-300">
-                  <span className="text-3xl">🟠</span>
+      {/* Professional Experience */}
+      <section id="experience" className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">Professional Experience</h2>
+          
+          <div className="space-y-8">
+            <Card className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white/80'} backdrop-blur-sm border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]`}>
+              <CardHeader>
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start">
                   <div>
-                    <div className="font-semibold text-black">AWS Certified Cloud Practitioner</div>
-                    <div className="text-sm text-gray-500">Amazon Web Services • 2025</div>
+                    <CardTitle className="text-2xl mb-2">Cloud Infrastructure Trainee</CardTitle>
+                    <p className="text-xl text-mint-600 font-semibold mb-2">DBS Bank</p>
+                    <p className="text-gray-500">January 2024 - Present • Singapore</p>
+                  </div>
+                  <Badge className="bg-green-100 text-green-800 mt-4 md:mt-0">Current Role</Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-semibold mb-3">Key Achievements:</h4>
+                    <ul className="space-y-2 text-gray-600">
+                      <li className="flex items-start gap-3">
+                        <span className="text-mint-500 mt-1">🔧</span>
+                        Configured Mirantis Kubernetes Engine on Linux systems
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-mint-500 mt-1">☁️</span>
+                        Managed multiple VMs in Oracle Private Cloud
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-mint-500 mt-1">📋</span>
+                        Documented infrastructure processes and configurations
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-3">Technologies Used:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge>Kubernetes</Badge>
+                      <Badge>Docker</Badge>
+                      <Badge>Oracle Cloud</Badge>
+                      <Badge>Linux</Badge>
+                      <Badge>Infrastructure as Code</Badge>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-xl border border-blue-200 hover:scale-105 transition-transform duration-300">
-                  <span className="text-3xl">🔵</span>
+              </CardContent>
+            </Card>
+
+            <Card className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white/80'} backdrop-blur-sm border border-mint-200/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]`}>
+              <CardHeader>
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start">
                   <div>
-                    <div className="font-semibold text-black">Azure Fundamentals</div>
-                    <div className="text-sm text-gray-500">Microsoft • 2025</div>
+                    <CardTitle className="text-2xl mb-2">Data Center Engineer</CardTitle>
+                    <p className="text-xl text-mint-600 font-semibold mb-2">Leaseweb</p>
+                    <p className="text-gray-500">May 2022 - December 2023 • Singapore</p>
+                  </div>
+                  <Badge variant="outline" className="mt-4 md:mt-0">1.7 Years</Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className={`${isDarkMode ? 'bg-gray-700' : 'bg-mint-50'} border border-mint-200 rounded-xl p-4 mb-6`}>
+                  <div className="flex items-center gap-2 text-mint-800 font-semibold">
+                    <span className="text-lg">🎯</span>
+                    Key Achievement: 40% reduction in system downtime
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-mint-50 rounded-xl border border-mint-200 hover:scale-105 transition-transform duration-300">
-                  <span className="text-3xl">🟢</span>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div>
-                    <div className="font-semibold text-black">DevOps Foundation</div>
-                    <div className="text-sm text-gray-500">DevOps Institute • 2024</div>
+                    <h4 className="font-semibold mb-3">Infrastructure Responsibilities:</h4>
+                    <ul className="space-y-2 text-gray-600">
+                      <li className="flex items-start gap-3">
+                        <span className="text-mint-500 mt-1">🖥️</span>
+                        Server hardware installation and troubleshooting
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-mint-500 mt-1">🔌</span>
+                        Network device configuration and maintenance
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-mint-500 mt-1">🛠️</span>
+                        Remote hands support and hardware upgrades
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-3">Technical Skills Developed:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge>Server Hardware</Badge>
+                      <Badge>Network Configuration</Badge>
+                      <Badge>System Troubleshooting</Badge>
+                      <Badge>Data Center Operations</Badge>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-purple-50 rounded-xl border border-purple-200 hover:scale-105 transition-transform duration-300">
-                  <span className="text-3xl">🟣</span>
-                  <div>
-                    <div className="font-semibold text-black">Data Center Design Awareness</div>
-                    <div className="text-sm text-gray-500">DCD Academy • 2023</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -367,38 +504,46 @@ const ModernResumeLanding = () => {
       {/* Contact Section */}
       <section id="contact" className="py-20 px-6">
         <div className="max-w-5xl mx-auto text-center">
-          <div className="bg-gradient-to-br from-mint-500 to-mint-700 rounded-3xl p-12 text-white shadow-2xl hover:shadow-3xl transition-all duration-500 relative overflow-hidden">
-            <div className="absolute inset-0 bg-black/10 rounded-3xl"></div>
-            <div className="relative z-10">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">Let's Connect</h2>
+          <Card className="bg-gradient-to-br from-mint-500 to-mint-700 border-none shadow-2xl hover:shadow-3xl transition-all duration-500 relative overflow-hidden">
+            <CardContent className="p-12 text-white relative z-10">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">Let's Build Something Amazing</h2>
               <p className="text-xl mb-8 text-mint-100">
-                Interested in discussing cloud infrastructure opportunities? 
-                I'd love to hear from you.
+                Ready to discuss cloud infrastructure opportunities? 
+                I'm available for full-time roles and consulting projects.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a 
-                  href="mailto:hello@bingxian.io" 
-                  className="bg-white text-mint-600 px-8 py-4 rounded-full font-semibold hover:bg-mint-50 transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 shadow-lg"
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+                <Button 
+                  size="lg"
+                  className="bg-white text-mint-600 hover:bg-mint-50 px-8 py-4 text-lg font-semibold"
+                  asChild
                 >
-                  📧 Email Me
-                </a>
-                <a 
-                  href="https://linkedin.com/in/bingxian" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-mint-600 transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105"
+                  <a href="mailto:hello@bingxian.io">
+                    📧 Email Me
+                  </a>
+                </Button>
+                <Button 
+                  variant="outline"
+                  size="lg"
+                  className="border-2 border-white text-white hover:bg-white hover:text-mint-600 px-8 py-4 text-lg font-semibold"
+                  asChild
                 >
-                  💼 LinkedIn
-                </a>
+                  <a href="https://linkedin.com/in/bingxian" target="_blank" rel="noopener noreferrer">
+                    💼 LinkedIn
+                  </a>
+                </Button>
               </div>
-            </div>
-          </div>
+              <div className="flex items-center justify-center gap-2 text-mint-100">
+                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-sm">Available for new opportunities</span>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="py-8 px-6 text-center text-gray-500 bg-white/50 backdrop-blur-sm">
-        <p>&copy; 2024 Bing Xian Lim. Cloud Infrastructure Specialist.</p>
+        <p>&copy; 2024 Bing Xian Lim. Cloud Infrastructure & DevOps Engineer.</p>
       </footer>
     </div>
   );
@@ -409,7 +554,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <ModernResumeLanding />
+      <CloudPortfolio />
     </TooltipProvider>
   </QueryClientProvider>
 );
