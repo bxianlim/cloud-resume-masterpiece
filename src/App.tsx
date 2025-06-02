@@ -166,7 +166,7 @@ const CloudPortfolio = () => {
               <div className="mb-8 flex justify-center">
                 <div className="relative group">
                   <img 
-                    src="/profile.jpg" 
+                    src="/profile.png" 
                     alt="Bing Xian Lim - Cloud Infrastructure Engineer" 
                     className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover shadow-2xl border-4 border-white/80 transition-all duration-300 group-hover:scale-105"
                     onError={(e) => {
